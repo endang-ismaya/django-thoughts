@@ -7,7 +7,15 @@
 
 <ul>
     {% for task in tasks %}
-    <li>{{task.title}}</li>
+    <li>
+        <div>
+            <p>{{task.title}}</p>
+            <p style="margin-left: 15px">>>>{{task.description}}</p>
+        </div>
+        <small>
+            <a href="{% url 'app_journal:update_task' task.id %}">update</a>
+        </small>
+    </li>
     {% endfor %}
 </ul>
 {% endblock content %}

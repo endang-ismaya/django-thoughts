@@ -35,3 +35,22 @@ def add_task(request):
         "form": form,
     }
     return render(request, "add_task.html", context)
+
+
+def update_task(request, pk):
+    task = models.Task.objects.get(id=pk)
+
+    form = TaskForm(instance=task)
+
+    if request.method == "POST":
+        form = TaskForm(request.POST, instance=task)
+
+        if form.is_valid():
+            form.save()
+            return redirect(reverse("app_journal:tasks"))
+
+    context = {
+        "form": form,
+    }
+
+    return render(request, "update_task.html", context)

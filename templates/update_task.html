@@ -1,0 +1,16 @@
+{% include "base.html" %}
+
+<!-- content -->
+{% block content %}
+
+<h3>Update a Task</h3>
+
+<form method="POST" autocomplete="off" enctype="multipart/form-data">
+    {% csrf_token %}
+    <!-- form start -->
+    {{form.as_p }}
+    <!-- from end -->
+    <input type="submit" value="Update Task" />
+</form>
+
+{% endblock content %}

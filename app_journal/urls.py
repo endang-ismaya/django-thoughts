@@ -5,5 +5,7 @@ app_name = "app_journal"
 urlpatterns = [
     path("", views.home, name="home"),
     path("tasks/", views.tasks, name="tasks"),
+    path("tasks/add/", views.add_task, name="add_task"),
+    path("tasks/<int:pk>/update", views.add_task, name="add_task"),
     path("register/", views.register, name="register"),
 ]

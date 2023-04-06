@@ -7,7 +7,15 @@
         <title>Document</title>
     </head>
     <body>
-        <nav>Task and Thoughts</nav>
+        <nav>
+            <h2>Task and Thoughts</h2>
+            <ul>
+                <li><a href={% url 'app_journal:home' %}>Home</a></li>
+                <li><a href={% url 'app_journal:tasks' %}>Tasks</a></li>
+                <li><a href={% url 'app_journal:add_task' %}>Add Task</a></li>
+            </ul>
+        </nav>
+        <hr>
         {% block content %}
         <!-- content -->
         {% endblock content %}

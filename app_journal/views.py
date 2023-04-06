@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.urls import reverse
 from app_journal import models
+from app_journal.forms import TaskForm
 
 
 # Create your views here.
@@ -16,3 +18,20 @@ def tasks(request):
     context = {"tasks": tasks}
 
     return render(request, "tasks.html", context)
+
+
+def add_task(request):
+    form = TaskForm()
+
+    if request.method == "POST":
+        form = TaskForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+
+            return redirect(reverse("app_journal:tasks"))
+
+    context = {
+        "form": form,
+    }
+    return render(request, "add_task.html", context)

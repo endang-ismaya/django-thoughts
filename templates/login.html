@@ -1,0 +1,30 @@
+{% include "base.html" %}
+
+<!-- content -->
+{% block content %}
+
+<h3>Login</h3>
+
+<form method="POST" autocomplete="off" enctype="multipart/form-data">
+    {% csrf_token %}
+    <!-- form errors start -->
+    {% if form.errors %}
+    <p>{{ form.errors }}</p>
+    {% endif %}
+    <!-- form errors end -->
+    <!-- form start -->
+    <div style="margin-bottom: 5px">
+        <label for="email">Email: </label>
+        <!-- username as email -->
+        {{form.username}}
+    </div>
+    <div style="margin-bottom: 5px">
+        <label for="password">Password: </label>
+        <!-- password -->
+        {{form.password}}
+    </div>
+    <!-- from end -->
+    <input type="submit" value="Login" />
+</form>
+
+{% endblock content %}

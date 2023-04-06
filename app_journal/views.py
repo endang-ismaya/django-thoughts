@@ -1,9 +1,10 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 
 from app_journal import models
-from app_journal.forms import TaskForm, RegisterForm
+from app_journal.forms import TaskForm, RegisterForm, LoginForm
 
 
 def home(request):
@@ -13,7 +14,43 @@ def home(request):
 # ---------------
 # Users
 # ---------------
-def register(request):
+def user_logout(request):
+    logout(request)
+    messages.success(request, ("You have been logged out."))
+    return redirect(reverse("app_journal:login"))
+
+
+def user_login(request):
+    if request.method == "POST":
+        form = LoginForm(request, data=request.POST)
+
+        if form.is_valid():
+            username = request.POST.get("username")
+            password = request.POST.get("password")
+
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                messages.success(request, ("You have been logged in."))
+                return redirect(reverse("app_journal:dashboard"))
+            else:
+                messages.warning(request, ("Error logging In - Please try it again."))
+                return redirect(reverse("app_journal:login"))
+
+        context = {
+            "form": form,
+        }
+        return render(request, "login.html", context)
+
+    form = LoginForm()
+    context = {
+        "form": form,
+    }
+    return render(request, "login.html", context)
+
+
+def user_register(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
 
@@ -93,3 +130,10 @@ def delete_task(request, pk):
     context = {"task": task}
 
     return render(request, "delete_task.html", context)
+
+
+# ---------------
+# Dashboard
+# ---------------
+def dashboard(request):
+    return render(request, "dashboard.html")

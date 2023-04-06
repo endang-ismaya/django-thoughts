@@ -16,5 +16,34 @@
     },
     "[html]": {
         "editor.tabSize": 2
+    },
+    "todo-tree.general.tags": [
+        "BUG",
+        "HACK",
+        "FIXME",
+        "TODO",
+        "XXX",
+        "[ ]",
+        "[x]"
+    ],
+    "todo-tree.highlights.defaultHighlight": {
+        "icon": "alert",
+        "type": "text",
+        "foreground": "#F6F1E9",
+        "background": "#0B2447",
+        "opacity": 50,
+        "iconColour": "#FFD93D"
+    },
+    "todo-tree.highlights.customHighlight": {
+        "TODO": {
+            "icon": "alert",
+            "type": "line",
+            "gutterIcon": true
+        },
+        "FIXME": {
+            "icon": "bell",
+            "type": "line",
+            "gutterIcon": true
+        }
     }
 }

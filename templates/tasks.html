@@ -1,0 +1,13 @@
+{% include "base.html" %}
+
+<!-- content -->
+{% block content %}
+
+<h3>Your list of Task!</h3>
+
+<ul>
+    {% for task in tasks %}
+    <li>{{task.title}}</li>
+    {% endfor %}
+</ul>
+{% endblock content %}

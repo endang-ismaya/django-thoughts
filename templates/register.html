@@ -1,4 +1,41 @@
 {% include "base.html" %}
 
-<h3>Welcome to the registration page!</h3>
-<p>This is where you register</p>
+<!-- content -->
+{% block content %}
+
+<h3>Register New Account</h3>
+
+<form method="POST" autocomplete="off" enctype="multipart/form-data">
+    {% csrf_token %}
+    <!-- form start -->
+    <div style="margin-bottom: 5px">
+        <label for="first_name">First Name: </label>
+        <!-- first name -->
+        {{form.first_name}}
+    </div>
+    <div style="margin-bottom: 5px">
+        <label for="last_name">Last Name: </label>
+        <!-- last name -->
+        {{form.last_name}}
+    </div>
+    <div style="margin-bottom: 5px">
+        <label for="email">Email: </label>
+        <!-- email -->
+        {{form.email}}
+    </div>
+    <div style="margin-bottom: 5px">
+        <label for="password1">Password: </label>
+        <!-- password1 -->
+        {{form.password1}}
+    </div>
+    <div style="margin-bottom: 5px">
+        <label for="password2">Confirm Password: </label>
+        <!-- password2 -->
+        {{form.password2}}
+    </div>
+
+    <!-- from end -->
+    <input type="submit" value="Sign Up" />
+</form>
+
+{% endblock content %}

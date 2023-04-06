@@ -1,18 +1,45 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse
+from django.contrib.auth.models import User
+
 from app_journal import models
-from app_journal.forms import TaskForm
-
-
-# Create your views here.
-def register(request):
-    return render(request, "register.html")
+from app_journal.forms import TaskForm, RegisterForm
 
 
 def home(request):
     return render(request, "index.html")
 
 
+# ---------------
+# Users
+# ---------------
+def register(request):
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.username = request.POST.get("email")
+            instance.first_name = instance.first_name.lower()
+            instance.last_name = instance.last_name.lower()
+            instance.save()
+
+            return redirect(reverse("app_journal:home"))
+    else:
+        form = RegisterForm()
+
+    context = {"form": form}
+
+    return render(request, "register.html", context)
+
+
+def register_success(request):
+    return render(request, "register_success.html")
+
+
+# ---------------
+# Task
+# ---------------
 def tasks(request):
     tasks = models.Task.objects.order_by("-created_at")
     context = {"tasks": tasks}

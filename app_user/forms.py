@@ -1,6 +1,9 @@
+from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.forms import AuthenticationForm
+from django.forms.widgets import PasswordInput, TextInput
 
 
 class RegistrationForm(UserCreationForm):
@@ -14,3 +17,8 @@ class RegistrationForm(UserCreationForm):
             "password1": _("Password"),
             "password2": _("Confirm Password"),
         }
+
+
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(widget=TextInput())
+    password = forms.CharField(widget=PasswordInput())

@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from app_user.forms import RegistrationForm
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
+from app_user.forms import RegistrationForm, LoginForm
 
 
 def user_register(request):
@@ -28,8 +32,36 @@ def user_register(request):
 
 
 def user_login(request):
-    pass
+    if request.method == "POST":
+        form = LoginForm(request, data=request.POST)
+
+        if form.is_valid():
+            username = request.POST.get("username")
+            password = request.POST.get("password")
+
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                messages.success(request, ("You have been logged in."))
+                return redirect(reverse("app_journal_final:index"))
+            else:
+                messages.warning(request, ("Error logging In - Please try it again."))
+                return redirect(reverse("app_user:login"))
+
+        context = {
+            "form": form,
+        }
+        return render(request, "app_user/login.html", context)
+
+    form = LoginForm()
+    context = {
+        "form": form,
+    }
+    return render(request, "app_user/login.html", context)
 
 
 def user_logout(request):
-    pass
+    logout(request)
+    messages.success(request, ("You have been logged out."))
+    return redirect(reverse("app_user:login"))

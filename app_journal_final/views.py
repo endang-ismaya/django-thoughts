@@ -2,5 +2,5 @@ from django.shortcuts import render
 
 
 # Create your views here.
-def journals(request):
-    pass
+def index(request):
+    return render(request, "index.html")

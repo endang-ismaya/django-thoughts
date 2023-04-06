@@ -61,7 +61,11 @@ def user_login(request):
     return render(request, "app_user/login.html", context)
 
 
+@login_required
 def user_logout(request):
-    logout(request)
-    messages.success(request, ("You have been logged out."))
-    return redirect(reverse("app_user:login"))
+    if request.method == "POST":
+        logout(request)
+        messages.success(request, ("You have been logged out."))
+        return redirect(reverse("app_user:login"))
+
+    return render(request, "app_user/login.html")

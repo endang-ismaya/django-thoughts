@@ -7,3 +7,10 @@ class ThoughtPostForm(forms.ModelForm):
         model = Thought
         fields = ("title", "content")
         exclude = ("poster",)
+
+
+class ThoughtUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Thought
+        fields = ("title", "content")
+        exclude = ("poster",)

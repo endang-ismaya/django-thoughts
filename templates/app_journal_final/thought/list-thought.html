@@ -1,0 +1,51 @@
+<!-- load static -->
+{% load static %}
+
+<!-- base.html -->
+{% include "base.html" %}
+
+<!-- content start -->
+{% block content %}
+
+<div class="container w-75">
+    {% if thoughts %}
+
+    <!-- loop thoughts -->
+    {% for thought in thoughts %}
+
+    <div class="card bg-secondary mb-5" style="max-width: 60rem">
+        <div class="card-body">
+            <h4 class="card-title">{{thought.title}}</h4>
+            <p class="card-text">{{thought.content}}</p>
+        </div>
+        <div class="card-header">
+            By {{thought.poster.first_name | title}}
+            <!-- -->
+            {{thought.poster.last_name | title}}
+        </div>
+        <div class="card-footer text-body-secondary text-end">
+            <a
+                href="{% url 'app_journal_final:update_thought' thought.id %}"
+                class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover mx-2 text-decoration-none"
+                >Update</a
+            >
+            <a href="#" class="text-reset text-decoration-none">Delete</a>
+        </div>
+    </div>
+
+    {% endfor %}
+
+    <!-- else -->
+    {% else %}
+    <p>
+        No thought found. add
+        <strong>
+            <a href="{% url 'app_journal_final:add_thought' %}">here</a></strong
+        >.
+    </p>
+    {% endif %}
+</div>
+
+<!-- -->
+{% endblock content %}
+<!-- content end -->

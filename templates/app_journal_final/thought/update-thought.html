@@ -1,0 +1,40 @@
+<!-- load crispy_forms -->
+{% load crispy_forms_tags %}
+
+<!-- load static -->
+{% load static %}
+
+<!-- base.html -->
+{% include "base.html" %}
+
+<!-- content start -->
+{% block content %}
+
+<div class="container w-75">
+    <h3 class="mb-3 text-center">Update Thought</h3>
+
+    <form method="POST" autocomplete="off">
+        {% csrf_token %}
+
+        <!-- title -->
+        {{form.title | as_crispy_field}}
+
+        <br />
+
+        <!-- content -->
+        {{form.content | as_crispy_field}}
+
+        <br />
+
+        <button
+            type="submit"
+            class="btn btn-secondary btn-lg w-100 btn-block p-4"
+        >
+            &nbsp; Update Thought
+        </button>
+    </form>
+</div>
+
+<!-- -->
+{% endblock content %}
+<!-- content end -->

@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # internal
     "app_journal",
     "app_journal_final",
+    "app_user",
 ]
 
 MIDDLEWARE = [

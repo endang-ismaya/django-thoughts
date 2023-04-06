@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 from app_journal import models
 from app_journal.forms import TaskForm, RegisterForm, LoginForm
@@ -135,5 +136,6 @@ def delete_task(request, pk):
 # ---------------
 # Dashboard
 # ---------------
+@login_required(login_url="app_journal:login")
 def dashboard(request):
     return render(request, "dashboard.html")

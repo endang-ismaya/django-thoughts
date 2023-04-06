@@ -9,7 +9,6 @@ from app_user.forms import RegistrationForm, LoginForm
 
 def user_register(request):
     if request.method == "POST":
-        print(request.POST)
         form = RegistrationForm(request.POST)
 
         if form.is_valid():
@@ -19,7 +18,15 @@ def user_register(request):
             instance.last_name = instance.last_name.lower()
             instance.save()
 
-            return redirect(reverse("app_journal:home"))
+            # after registration successful, login and redirect to dashboard
+            user = authenticate(
+                request, username=instance.username, password=instance.password
+            )
+            login(request, user)
+            messages.success(
+                request, "Registration successful, your account has been registered"
+            )
+            return redirect(reverse("app_journal_final:dashboard"))
 
         context = {"form": form}
 
@@ -43,8 +50,8 @@ def user_login(request):
 
             if user is not None:
                 login(request, user)
-                messages.success(request, ("You have been logged in."))
-                return redirect(reverse("app_journal_final:index"))
+                # messages.success(request, ("You have been logged in."))
+                return redirect(reverse("app_journal_final:dashboard"))
             else:
                 messages.warning(request, ("Error logging In - Please try it again."))
                 return redirect(reverse("app_user:login"))

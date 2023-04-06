@@ -44,10 +44,28 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Features</a>
+                            <a
+                                class="nav-link"
+                                href="{% url 'app_journal_final:dashboard' %}"
+                                >Dashboard</a
+                            >
                         </li>
                     </ul>
                     <div class="d-flex m-2">
+                        {% if user.is_authenticated %}
+                        <form
+                            method="POST"
+                            action="{% url 'app_user:logout' %}"
+                        >
+                            {% csrf_token %}
+                            <button
+                                class="btn btn-secondary btn-sm"
+                                type="submit"
+                            >
+                                Logout
+                            </button>
+                        </form>
+                        {% else %}
                         <a
                             class="btn btn-secondary btn-sm mx-3"
                             href="{% url 'app_user:register' %}"
@@ -60,11 +78,32 @@
                         >
                             Login
                         </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </nav>
-        <hr />
+        <div class="container mb-5 mt-2">
+            {% for message in messages %}
+            <!-- messages start -->
+
+            <!-- check if message.success -->
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            <div class="alert alert-dismissible alert-success">
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                ></button>
+                {% comment %} <strong>Welcome!</strong> {% endcomment %}
+                <p>{{message}}</p>
+            </div>
+            {% endif %}
+
+            <!-- messages end -->
+            {% endfor %}
+        </div>
+
         {% block content %}
         <!-- content -->
         {% endblock content %}

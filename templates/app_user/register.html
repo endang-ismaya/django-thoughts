@@ -1,13 +1,92 @@
 {% load static %}
 
+<!-- base.html -->
+{% include "base.html" %}
+
 <!-- content start -->
 {% block content %}
 
-<form method="post" autocomplete="off">
-    <button type="submit" class="btn btn-secondary btn-lg w-100 btn-block p-4">
-        &nbsp; Register Account
-    </button>
-</form>
+<div class="container">
+    {% if form.errors %}
+    <div class="alert alert-dismissible alert-warning">
+        <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+        ></button>
+        <h4 class="alert-heading">Warning!</h4>
+        <p class="mb-0">{{form.errors}}</p>
+    </div>
+    {% endif %}
+</div>
+
+<div class="container w-50">
+    <form method="POST" autocomplete="off">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Register New Account</legend>
+            <div class="form-group">
+                <label for="first_name" class="form-label mt-4"
+                    >Firstname</label
+                >
+                <input
+                    type="text"
+                    class="form-control"
+                    id="first_name"
+                    name="first_name"
+                    placeholder="Enter first name"
+                />
+            </div>
+            <div class="form-group">
+                <label for="last_name" class="form-label mt-4">Lastname</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="last_name"
+                    name="last_name"
+                    placeholder="Enter last name"
+                />
+            </div>
+            <div class="form-group">
+                <label for="email" class="form-label mt-4">Email address</label>
+                <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    name="email"
+                    placeholder="Enter email"
+                />
+            </div>
+            <div class="form-group">
+                <label for="password1" class="form-label mt-4">Password</label>
+                <input
+                    type="password"
+                    class="form-control"
+                    id="password1"
+                    name="password1"
+                    placeholder="Enter password"
+                />
+            </div>
+            <div class="form-group">
+                <label for="password2" class="form-label mt-4"
+                    >Confirm Password</label
+                >
+                <input
+                    type="password"
+                    class="form-control"
+                    id="password2"
+                    name="password2"
+                    placeholder="Enter confirm password"
+                />
+                <small class="form-text text-muted"
+                    >Enter the same password as before, for verification.</small
+                >
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-5">Submit</button>
+        </fieldset>
+    </form>
+</div>
 
 <!-- -->
 {% endblock content %}

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # external packages
     # internal
     "app_journal",
+    "app_journal_final",
 ]
 
 MIDDLEWARE = [

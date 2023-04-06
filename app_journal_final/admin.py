@@ -1,3 +1,4 @@
 from django.contrib import admin
+from app_journal_final.models import Thought
 
-# Register your models here.
+admin.site.register(Thought)

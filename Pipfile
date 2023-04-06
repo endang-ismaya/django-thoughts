@@ -7,6 +7,7 @@ name = "pypi"
 django = "*"
 django-dotenv = "*"
 django-crispy-forms = "*"
+crispy-bootstrap5 = "*"
 
 [dev-packages]
 flake8 = "*"

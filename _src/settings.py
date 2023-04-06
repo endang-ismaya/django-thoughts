@@ -42,11 +42,13 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # external packages
     # internal
     "app_journal",
     "app_journal_final",
     "app_user",
+    # external packages
+    "crispy_forms",
+    "crispy_bootstrap5",
 ]
 
 MIDDLEWARE = [
@@ -137,3 +139,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # LOGIN_URL = "app_user/login"
 # LOGIN_REDIRECT_URL = "app_journal_final/index"
 # LOGOUT_REDIRECT_URL = "app_user/login"
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"

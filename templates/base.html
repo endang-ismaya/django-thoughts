@@ -50,6 +50,13 @@
                                 >Dashboard</a
                             >
                         </li>
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                href="{% url 'app_journal_final:add_thought' %}"
+                                >Add Thought</a
+                            >
+                        </li>
                     </ul>
                     <div class="d-flex m-2">
                         {% if user.is_authenticated %}
@@ -83,6 +90,22 @@
                 </div>
             </div>
         </nav>
+        <!-- Error Messages -->
+        <div class="container">
+            {% if form.errors %}
+            <div class="alert alert-dismissible alert-danger">
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                ></button>
+                <strong>Oh snap!</strong>
+                {{form.errors}}
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Messages -->
         <div class="container mb-5 mt-2">
             {% for message in messages %}
             <!-- messages start -->

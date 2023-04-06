@@ -54,3 +54,15 @@ def update_task(request, pk):
     }
 
     return render(request, "update_task.html", context)
+
+
+def delete_task(request, pk):
+    task = models.Task.objects.get(id=pk)
+
+    if request.method == "POST":
+        task.delete()
+        return redirect(reverse("app_journal:tasks"))
+
+    context = {"task": task}
+
+    return render(request, "delete_task.html", context)

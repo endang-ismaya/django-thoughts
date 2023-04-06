@@ -13,7 +13,9 @@
             <p style="margin-left: 15px">>>>{{task.description}}</p>
         </div>
         <small>
-            <a href="{% url 'app_journal:update_task' task.id %}">update</a>
+            <a href="{% url 'app_journal:update_task' task.id %}">😏update😏</a>
+            OR
+            <a href="{% url 'app_journal:delete_task' task.id %}">😢delete😢</a>
         </small>
     </li>
     {% endfor %}

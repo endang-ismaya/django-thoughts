@@ -29,7 +29,11 @@
                 class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover mx-2 text-decoration-none"
                 >Update</a
             >
-            <a href="#" class="text-reset text-decoration-none">Delete</a>
+            <a
+                href="{% url 'app_journal_final:delete_thought' thought.id %}"
+                class="text-reset text-decoration-none"
+                >Delete</a
+            >
         </div>
     </div>
 

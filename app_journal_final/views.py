@@ -66,5 +66,22 @@ def list_thought(request):
     return render(request, "app_journal_final/thought/list-thought.html", context)
 
 
+@login_required(login_url="app_user:login")
+def delete_thought(request, pk):
+    try:
+        thought = Thought.objects.get(pk=pk, poster=request.user)
+
+        if request.method == "POST":
+            thought.delete()
+            messages.success(request, "Thought has been deleted")
+            return redirect(reverse("app_journal_final:list_thought"))
+
+        context = {"thought": thought}
+        return render(request, "app_journal_final/thought/delete-thought.html", context)
+    except Thought.DoesNotExist:
+        messages.error(request, "Thought not found!.")
+        return redirect(reverse("app_journal_final:list_thought"))
+
+
 def index(request):
     return render(request, "index.html")

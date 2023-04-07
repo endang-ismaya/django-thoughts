@@ -11,26 +11,23 @@
 {% block content %}
 
 <div class="container w-75">
-    <h3 class="mb-3 text-center">Update Thought</h3>
+    <h3 class="mb-5 text-center">Delete Thought 😢</h3>
 
     <form method="POST" autocomplete="off">
         {% csrf_token %}
 
-        <!-- title -->
-        {{form.title | as_crispy_field}}
+        <div class="card border-danger mb-3" style="max-width: 60rem">
+            <div class="card-header text-danger fw-bold">
+                Are you sure you want to delete below thought?
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">{{thought.title}}</h4>
+                <p class="card-text">{{thought.content}}</p>
+            </div>
+        </div>
 
-        <br />
-
-        <!-- content -->
-        {{form.content | as_crispy_field}}
-
-        <br />
-
-        <button
-            type="submit"
-            class="btn btn-secondary btn-lg w-100 btn-block p-4"
-        >
-            &nbsp; Update Thought
+        <button type="submit" class="btn btn-outline-danger w-100">
+            &nbsp; Delete Thought
         </button>
     </form>
 

@@ -10,3 +10,6 @@ class Thought(models.Model):
     poster = models.ForeignKey(
         User, max_length=10, on_delete=models.SET_NULL, null=True, related_name="poster"
     )
+
+    def __str__(self) -> str:
+        return f"{self.title} by {self.poster.username}"

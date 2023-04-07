@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 from app_user.forms import RegistrationForm, LoginForm, UpdateUserForm
 
@@ -95,6 +96,21 @@ def user_profile_update(request):
 
         context = {"form": form}
         return render(request, "app_user/profile_update.html", context)
+    except Exception:
+        messages.error(request, "Something went wrong!.")
+        return redirect(reverse("app_journal_final:dashboard"))
+
+
+@login_required(login_url="app_user:login")
+def user_delete(request):
+    try:
+        if request.method == "POST":
+            delete_user = User.objects.get(username=request.user)
+            delete_user.delete()
+            return redirect(reverse("app_user:login"))
+
+        return render(request, "app_user/delete_user.html")
+
     except Exception:
         messages.error(request, "Something went wrong!.")
         return redirect(reverse("app_journal_final:dashboard"))

@@ -11,23 +11,19 @@
 {% block content %}
 
 <div class="container w-75">
-    <h3 class="mb-5 text-center">Delete Account 😢</h3>
+    <h3 class="mb-5 text-center">Delete Thought 😢</h3>
 
     <form method="POST" autocomplete="off">
         {% csrf_token %}
 
         <div class="card border-danger mb-3" style="max-width: 60rem">
             <div class="card-header text-danger fw-bold">
-                Are you sure you want to delete below thought?
-            </div>
-            <div class="card-body">
-                <h4 class="card-title">{{thought.title}}</h4>
-                <p class="card-text">{{thought.content}}</p>
+                Are you sure you want to delete your user account?
             </div>
         </div>
 
         <button type="submit" class="btn btn-outline-danger w-100">
-            &nbsp; Delete Thought
+            &nbsp; Delete Account
         </button>
     </form>
 

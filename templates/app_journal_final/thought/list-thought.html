@@ -16,7 +16,7 @@
     <div class="card bg-secondary mb-5" style="max-width: 60rem">
         <div class="card-body">
             <h4 class="card-title">{{thought.title}}</h4>
-            <p class="card-text">{{thought.content}}</p>
+            <p class="card-text">{{thought.content | safe}}</p>
         </div>
         <div class="card-header">
             By {{thought.poster.first_name | title}}

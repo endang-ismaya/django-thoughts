@@ -5,6 +5,8 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.forms import AuthenticationForm
 from django.forms.widgets import PasswordInput, TextInput
 
+from app_user.models import Profile
+
 
 class RegistrationForm(UserCreationForm):
     class Meta:
@@ -31,3 +33,13 @@ class UpdateUserForm(forms.ModelForm):
         model = User
         fields = ("first_name", "last_name")
         exclude = ("password1", "password2", "username")
+
+
+class UpdateProfilePictureForm(forms.ModelForm):
+    profile_pic = forms.ImageField(
+        widget=forms.FileInput(attrs={"class": "form-control-file"})
+    )
+
+    class Meta:
+        model = Profile
+        fields = ("profile_pic",)

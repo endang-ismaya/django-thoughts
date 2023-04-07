@@ -37,9 +37,10 @@ class UpdateUserForm(forms.ModelForm):
 
 class UpdateProfilePictureForm(forms.ModelForm):
     profile_pic = forms.ImageField(
-        widget=forms.FileInput(attrs={"class": "form-control-file"})
+        widget=forms.FileInput(attrs={"class": "form-control"})
     )
 
     class Meta:
         model = Profile
         fields = ("profile_pic",)
+        labels = {"profile_pic": ""}

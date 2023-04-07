@@ -9,6 +9,7 @@ from app_user.forms import (
     RegistrationForm,
     LoginForm,
     UpdateUserForm,
+    UpdateProfilePictureForm,
 )
 from app_user.models import Profile
 
@@ -98,13 +99,48 @@ def user_profile_update(request):
             if form.is_valid():
                 form.save()
                 messages.success(request, "Profile updated successfully.")
-                return redirect(reverse("app_journal_final:dashboard"))
+                return redirect(reverse("app_user:profile_update"))
         else:
             form = UpdateUserForm(instance=request.user)
 
+        form_picture = UpdateProfilePictureForm()
         user_profile = Profile.objects.get(user=request.user)
-        print(user_profile.profile_pic)
-        context = {"form": form, "profile_pic": user_profile.profile_pic}
+        context = {
+            "form": form,
+            "profile_pic": user_profile.profile_pic,
+            "form_picture": form_picture,
+        }
+        return render(request, "app_user/profile_update.html", context)
+    except Exception:
+        messages.error(request, "Something went wrong!.")
+        return redirect(reverse("app_journal_final:dashboard"))
+
+
+@login_required(login_url="app_user:login")
+def user_profile_image_update(request):
+    try:
+        form = None
+
+        if request.method == "POST":
+            profile = Profile.objects.get(user=request.user)
+            form = UpdateProfilePictureForm(
+                request.POST, request.FILES, instance=profile
+            )
+
+            if form.is_valid():
+                form.save()
+                messages.success(request, "Image profile updated successfully.")
+                return redirect(reverse("app_user:profile_update"))
+        else:
+            form = UpdateUserForm(instance=request.user)
+
+        form_picture = UpdateProfilePictureForm()
+        user_profile = Profile.objects.get(user=request.user)
+        context = {
+            "form": form,
+            "profile_pic": user_profile.profile_pic,
+            "form_picture": form_picture,
+        }
         return render(request, "app_user/profile_update.html", context)
     except Exception:
         messages.error(request, "Something went wrong!.")

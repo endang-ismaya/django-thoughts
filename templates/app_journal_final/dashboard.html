@@ -7,7 +7,29 @@
 {% block content %}
 
 <div class="container">
-    <h1>Your Dashboard</h1>
+    <h1>Dashboard</h1>
+    <h5>Hello {{user.first_name}}</h5>
+
+    <ul class="list-group mt-5">
+        <li
+            class="list-group-item d-flex justify-content-between align-items-center pt-5 px-5"
+        >
+            Thoughts
+            <span class="badge bg-primary rounded-pill">14</span>
+        </li>
+        <li
+            class="list-group-item d-flex justify-content-between align-items-center pt-2 px-5"
+        >
+            Reviews
+            <span class="badge bg-primary rounded-pill">2</span>
+        </li>
+        <li
+            class="list-group-item d-flex justify-content-between align-items-center pt-2 px-5 pb-5"
+        >
+            Contributions
+            <span class="badge bg-primary rounded-pill">1</span>
+        </li>
+    </ul>
 </div>
 
 <!-- -->

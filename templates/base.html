@@ -38,18 +38,18 @@
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a
-                                class="nav-link active"
-                                href="{% url 'app_journal_final:list_thought' %}"
-                                >Thoughts
-                                <span class="visually-hidden">(current)</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a
                                 class="nav-link"
                                 href="{% url 'app_journal_final:dashboard' %}"
                                 >Dashboard</a
                             >
+                        </li>
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                href="{% url 'app_journal_final:list_thought' %}"
+                                >Thoughts
+                                <span class="visually-hidden">(current)</span>
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a
@@ -64,6 +64,12 @@
                     {% endif %}
                     <div class="d-flex">
                         {% if user.is_authenticated %}
+                        <a
+                            class="btn btn-secondary btn-sm mx-3"
+                            href="{% url 'app_user:profile_update' %}"
+                        >
+                            Profile
+                        </a>
                         <form
                             method="POST"
                             action="{% url 'app_user:logout' %}"

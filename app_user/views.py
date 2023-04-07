@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-from app_user.forms import RegistrationForm, LoginForm
+from app_user.forms import RegistrationForm, LoginForm, UpdateUserForm
 
 
 def user_register(request):
@@ -68,7 +68,7 @@ def user_login(request):
     return render(request, "app_user/login.html", context)
 
 
-@login_required
+@login_required(login_url="app_user:login")
 def user_logout(request):
     if request.method == "POST":
         logout(request)
@@ -76,3 +76,25 @@ def user_logout(request):
         return redirect(reverse("app_user:login"))
 
     return render(request, "app_user/login.html")
+
+
+@login_required(login_url="app_user:login")
+def user_profile_update(request):
+    try:
+        form = None
+
+        if request.method == "POST":
+            form = UpdateUserForm(request.POST, instance=request.user)
+
+            if form.is_valid():
+                form.save()
+                messages.success(request, "Profile updated successfully.")
+                return redirect(reverse("app_journal_final:dashboard"))
+        else:
+            form = UpdateUserForm(instance=request.user)
+
+        context = {"form": form}
+        return render(request, "app_user/profile_update.html", context)
+    except Exception:
+        messages.error(request, "Something went wrong!.")
+        return redirect(reverse("app_journal_final:dashboard"))

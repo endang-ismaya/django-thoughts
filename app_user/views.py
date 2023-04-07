@@ -5,7 +5,12 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
-from app_user.forms import RegistrationForm, LoginForm, UpdateUserForm
+from app_user.forms import (
+    RegistrationForm,
+    LoginForm,
+    UpdateUserForm,
+)
+from app_user.models import Profile
 
 
 def user_register(request):
@@ -17,12 +22,15 @@ def user_register(request):
             instance.username = request.POST.get("email")
             instance.first_name = instance.first_name.lower()
             instance.last_name = instance.last_name.lower()
+
+            # add profile
             instance.save()
 
             # after registration successful, login and redirect to dashboard
             # user = authenticate(
             #     request, username=instance.username, password=instance.password
             # )
+            Profile.objects.create(user=instance)
             login(request, instance)
             messages.success(
                 request, "Registration successful, your account has been registered"
@@ -94,7 +102,9 @@ def user_profile_update(request):
         else:
             form = UpdateUserForm(instance=request.user)
 
-        context = {"form": form}
+        user_profile = Profile.objects.get(user=request.user)
+        print(user_profile.profile_pic)
+        context = {"form": form, "profile_pic": user_profile.profile_pic}
         return render(request, "app_user/profile_update.html", context)
     except Exception:
         messages.error(request, "Something went wrong!.")

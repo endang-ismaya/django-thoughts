@@ -10,9 +10,16 @@
 <!-- content start -->
 {% block content %}
 
-<div class="container w-75">
-    <h3 class="mb-3 text-center">Profile Update</h3>
+<div class="container w-75 d-flex flex-column">
+    <h3 class="mb-5 text-center">Profile Update</h3>
 
+    <div class="card align-self-center" style="width: 18rem">
+        <img
+            src="{{profile_pic.url}}"
+            class="card-img-top"
+            alt="{{user.first_name}}"
+        />
+    </div>
     <form method="POST" autocomplete="off">
         {% csrf_token %}
 

@@ -33,8 +33,9 @@
                 >
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarColor01">
-                    <ul class="navbar-nav me-auto">
+                <div class="collapse navbar-collapse d-flex" id="navbarColor01">
+                    {% if user.is_authenticated %}
+                    <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a
                                 class="nav-link active"
@@ -58,7 +59,10 @@
                             >
                         </li>
                     </ul>
-                    <div class="d-flex m-2">
+                    {% else %}
+                    <ul class="navbar-nav flex-grow-1"></ul>
+                    {% endif %}
+                    <div class="d-flex">
                         {% if user.is_authenticated %}
                         <form
                             method="POST"
@@ -80,7 +84,7 @@
                             Register
                         </a>
                         <a
-                            class="btn btn-secondary btn-sm"
+                            class="btn btn-secondary btn-sm mx-3"
                             href="{% url 'app_user:login' %}"
                         >
                             Login
@@ -106,7 +110,7 @@
         </div>
 
         <!-- Messages -->
-        <div class="container mb-5 mt-2">
+        <div class="container mb-5 mt-5 w-50">
             {% for message in messages %}
             <!-- messages start -->
 
@@ -122,8 +126,22 @@
                 <p>{{message}}</p>
             </div>
             {% endif %}
-
             <!-- messages end -->
+
+            <!-- check if message.success -->
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+            <div class="alert alert-dismissible alert-warning">
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                ></button>
+                {% comment %} <strong>Welcome!</strong> {% endcomment %}
+                <p>{{message}}</p>
+            </div>
+            {% endif %}
+            <!-- messages end -->
+
             {% endfor %}
         </div>
 

@@ -19,10 +19,10 @@ def user_register(request):
             instance.save()
 
             # after registration successful, login and redirect to dashboard
-            user = authenticate(
-                request, username=instance.username, password=instance.password
-            )
-            login(request, user)
+            # user = authenticate(
+            #     request, username=instance.username, password=instance.password
+            # )
+            login(request, instance)
             messages.success(
                 request, "Registration successful, your account has been registered"
             )

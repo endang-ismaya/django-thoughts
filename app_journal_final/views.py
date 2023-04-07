@@ -36,25 +36,28 @@ def add_thought(request):
 
 @login_required(login_url="app_user:login")
 def update_thought(request, pk):
-    # initialize form
-    form = None
-    thought = Thought.objects.get(pk=pk, poster=request.user)
+    try:
+        form = None
+        thought = Thought.objects.get(pk=pk, poster=request.user)
 
-    if request.method == "POST":
-        form = ThoughtUpdateForm(request.POST, instance=thought)
+        if request.method == "POST":
+            form = ThoughtUpdateForm(request.POST, instance=thought)
 
-        if form.is_valid():
-            thought.save()
-            messages.success(request, "Thought updated successfully.")
-            return redirect(reverse("app_journal_final:list_thought"))
-    else:
-        form = ThoughtUpdateForm(instance=thought)
+            if form.is_valid():
+                thought.save()
+                messages.success(request, "Thought updated successfully.")
+                return redirect(reverse("app_journal_final:list_thought"))
+        else:
+            form = ThoughtUpdateForm(instance=thought)
 
-    context = {"form": form}
-    return render(request, "app_journal_final/thought/update-thought.html", context)
+        context = {"form": form}
+        return render(request, "app_journal_final/thought/update-thought.html", context)
+    except Thought.DoesNotExist:
+        messages.error(request, "Thought not found!.")
+        return redirect(reverse("app_journal_final:list_thought"))
 
 
-@login_required
+@login_required(login_url="app_user:login")
 def list_thought(request):
     current_user = request.user
     thoughts = Thought.objects.all().filter(poster=current_user)
